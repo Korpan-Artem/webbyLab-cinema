@@ -131,7 +131,7 @@ function Header() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {item.page}
+                                <Link to={item.url}>{item.page}</Link>
                             </Button>
                         ))}
                     </Box>
