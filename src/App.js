@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import AboutPage from "./modules/AboutPage";
 import HomePage from "./modules/HomePage";
 import NotFound from "./modules/NotFound";
+import CityPage from "./modules/CityPage";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
        <Routes>
         <Route path="/" element={<Layout/>}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/:id" element={<CityPage/>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<NotFound/>}/>
         </Route>
