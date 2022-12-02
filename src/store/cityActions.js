@@ -10,15 +10,12 @@ const sliceCity = createSlice({
             console.log(state);
             console.log(action);
             state.cities.push({
-                id:  action.payload.id,
-                name: action.payload.name,
-                temp: action.payload.main.temp,
-                wind: action.payload.wind.speed
+                city:  action.payload,
+                
             })
         },
         removeCity(state, action) {
-            console.log(action.payload);
-            state.cities = state.cities.filter(city => city.id !== action.payload)
+            state.cities = state.cities.filter(item => item.city.id !== action.payload)
         },
         // refreshCity(state, action) {},
     }
