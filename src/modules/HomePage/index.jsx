@@ -20,6 +20,7 @@ function HomePage() {
       if (event.key === 'Enter') {
         axios.get(url).then((response) => {
           dispatch(addCity(response.data));
+          // console.log(response.data);
         })
         setCity('');
       }
@@ -27,14 +28,14 @@ function HomePage() {
   }
 
 
-  useEffect(() => {
-    if(listCity.cities.length > 0) {
-      listCity.cities.map((cities) => {
-        console.log(cities.city.name,cities);
-      })
-    }
+  // useEffect(() => {
+  //   if(listCity.cities.length > 0) {
+  //     listCity.cities.map((cities) => {
+  //       // console.log(cities.city.name,cities);
+  //     })
+  //   }
     
-  },[])
+  // },[])
 
 
 

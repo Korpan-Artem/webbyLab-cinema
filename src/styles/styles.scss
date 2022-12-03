@@ -1,3 +1,7 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
 body {
     background-color: rgb(199, 173, 173);
 }
@@ -11,10 +15,16 @@ body {
 
 .card-items {
     width: 100%;
+    font-family: 'Montserrat', sans-serif;
     .card-item {
         max-width: 200px;
         height: 500px;
         margin: 20px;
     }
+}
+
+.card-page {
+    margin-top: 30px;
+    font-family: 'Montserrat', sans-serif;
 }
 
