@@ -13,7 +13,7 @@ const CardCity = () => {
     dispatch(removeCity(id))
   }
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="md">
       <Grid container spacing={4}>
         {
           listCity.cities.length > 0 && listCity.cities.map((cities, index) => (
@@ -28,7 +28,6 @@ const CardCity = () => {
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary"><NavLink to={`/${cities.city.id}`}>View</NavLink></Button>
-                  <Button size="small" color="primary">Refresh</Button>
                   <Button size="small" color="primary" onClick={() => deleteCity(cities.city.id)}>Delete</Button>
                 </CardActions>
               </Card>
