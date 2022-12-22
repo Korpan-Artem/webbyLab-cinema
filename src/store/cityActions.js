@@ -24,11 +24,9 @@ const sliceCity = createSlice({
         },
         refreshCity(state, action) {
             let currentCity;
-            console.log(action);
             currentCity = state.cities.findIndex(
                 item => item.city.id == action.payload.id
             )
-            console.log(currentCity);
             if(currentCity >= 0) {
                 state.cities[currentCity] = {
                     city: action.payload
