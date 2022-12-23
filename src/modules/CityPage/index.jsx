@@ -35,7 +35,7 @@ function CityPage() {
         <Grid container spacing={4}>
           <Grid item justifyContent="center" xs={12} sm={12} md={12}>
             <Card color="primary" sx={{ bgcolor: 'primary.main' }}>
-              {!!currentCity.city && (
+              {!!currentCity && (
                 <CardContent className="card-item">
                   <Typography variant="h4" gutterBottom align="center" fontSize={"20"}>{currentCity.city.sys.country}, {currentCity.city.name}</Typography> 
                   <div className="box-image-sun">
