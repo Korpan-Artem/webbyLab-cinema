@@ -16,11 +16,11 @@ const CardCity = () => {
     <Container maxWidth="md">
       <Grid container spacing={4}>
         {
-          listCity.cities.length > 0 && listCity.cities.map((cities, index) => (
+          listCity.cities && listCity.cities.map((cities, index) => (
             <Grid key={index} item justifyContent="center" xs={12} sm={6} md={4}>
               <Card color="primary">
                 <CardContent className="card-item">
-                  <Typography variant="h4">{cities.city.name}</Typography>
+                  <Typography variant="h4" >{cities.city.name}</Typography>
                   {!!cities.city.main && (
                     <Typography variant="h5">{Math.round(cities.city.main.temp)} °C</Typography>
                   )}

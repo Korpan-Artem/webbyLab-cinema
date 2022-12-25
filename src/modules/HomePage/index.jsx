@@ -33,21 +33,18 @@ function HomePage() {
     
   }
 
-
   useEffect(() => {
-    if(listCity.cities.length > 0) {
+    if(listCity.cities) {
       listCity.cities.map((cities) => {
         !!cities.city && refrCity(cities.city.name);
       })
     }
   },[])
 
-
-
   return (
     <>
       <div className="search-input">
-        <Stack spacing={2} sx={{ width: 300 }} >
+        <Stack spacing={2} sx={{ width: 300 }}>
           <Typography align="center" variant="h2" color="textPrimary" gutterBottom>Weather</Typography>
           <TextField
             label="Search input"
@@ -55,11 +52,12 @@ function HomePage() {
             style={{ borderRadius: "50%" }}
             onKeyPress={(event) => add(event,city)}
             onChange={(event) => setCity(event.target.value)}
+            data-testid='input'
           />
         </Stack>
       </div>
       <div >
-        <CardCity/>
+        <CardCity />
       </div>
     </>
   );
