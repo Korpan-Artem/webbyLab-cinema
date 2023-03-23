@@ -1,63 +1,52 @@
-import React, { useEffect, useState } from "react";
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import { addCity, refreshCity } from "../../store/cityActions";
-import { useDispatch, useSelector } from "react-redux";
-import { Typography } from "@mui/material";
-import CardCity from "../../components/CardCity";
+import React, { useState } from "react";
+import { addMovie } from "../../store/cityActions";
+import { useDispatch } from "react-redux";
+import CardMovie from "../../components/CardMovie";
 import fetchCity from "../../hooks";
+import ModalItem from "../../components/ModalItem";
 
 
 function HomePage() {
   const [city, setCity] = useState('');
-  const listCity = useSelector(state => state.cities)
+  // const listCity = useSelector(state => state.cities)
   const dispatch = useDispatch();
 
-  const refrCity = (city) => {
-    if(city) {
-      const data = fetchCity(city);
-        data.then((value) => {
-        dispatch(refreshCity(value));
-        })
-    }
-  } 
 
   const add = (event,city) => {
     if(event.key === 'Enter') {
       const data = fetchCity(city);
       data.then((value) => {
-        dispatch(addCity(value));
+        dispatch(addMovie(value));
         setCity('')
     })
     }
     
   }
 
-  useEffect(() => {
-    if(listCity.cities) {
-      listCity.cities.map((cities) => {
-        !!cities.city && refrCity(cities.city.name);
-      })
-    }
-  },[])
-
   return (
     <>
-      <div className="search-input">
-        <Stack spacing={2} sx={{ width: 300 }}>
-          <Typography align="center" variant="h2" color="textPrimary" gutterBottom>Weather</Typography>
-          <TextField
-            label="Search input"
+    <header className='header'>
+      <div className='header-side'></div>
+      <h1>WebbyLab Cinema</h1>
+      <div className='header-side box-btns'>
+        <a className='btn-login' href=''>Log In</a>
+        <a className='btn-login sing-color' href=''>Sing Up</a>
+      </div>
+    </header>
+      
+      <div className='box-input'>
+          <input
+            placeholder='Search movies..'
+            className='input-search'
             value={city}
-            style={{ borderRadius: "50%" }}
             onKeyPress={(event) => add(event,city)}
             onChange={(event) => setCity(event.target.value)}
-            data-testid='input'
           />
-        </Stack>
+          <a href='' className='btn-add'></a>
       </div>
       <div >
-        <CardCity />
+        <CardMovie />
+        <ModalItem/>
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import sliceCity from "./cityActions";
+import moviesList from "./cityActions";
 import {
     persistStore,
     persistReducer,
@@ -14,7 +14,7 @@ import storage from 'redux-persist/lib/storage';
 
 
 const rootReducers = combineReducers({
-    cities: sliceCity,
+    cities: moviesList,
 })
 
 const persistConfig = {

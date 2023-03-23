@@ -1,29 +1,111 @@
 * {
     font-family: 'Montserrat', sans-serif;
+    color:#fff;
 }
 
 body {
-    background-color: rgb(199, 173, 173);
+    background-color: #000;
 }
 
-.search-input {
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .header-side {
+        flex: 0 0 25%;
+    }
+}
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+    letter-spacing: 2px;
+    padding: 20px;
+    text-align: center;
+}
+
+.box-btns {
+    display: flex;
+    justify-content: center;
+    .btn-login {
+        text-decoration: none;
+        padding: 10px 20px;
+        border: 2px solid #fff;
+        margin: 10px;
+        &:hover {
+            background-color: #fff;
+            color: #000;
+            transition: 1s color background-color;
+        }
+    }
+    .sing-color {
+    
+    } 
+}
+
+
+
+.box-input {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 30px 0;
 }
 
+.btn-add {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-color: #000;
+    margin: 0 0 0 20px;
+    transition: 1s all;
+    &::after {
+        content: '+';
+        font-size: 50px;
+        color:#fff;
+        position: absolute;
+        top:-5%;
+        left: 23%;
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.input-search {
+    width: 50%;
+    height: 50px;
+    border: 0;
+    padding: 20px 0 20px 20px;
+    box-sizing: border-box;
+    color:#000;
+}
+
+
 .card-items {
-    width: 100%;
-    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     .card-item {
         display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-        max-width: 200px;
-        height: 500px;
-        margin: 20px;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 300px;
+        height: 200px;
+        background-color: #000;
+        color:#fff;
+        border: 2px solid #fff;
+        &-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0 0 0 20px;
+        }
     }
 }
 

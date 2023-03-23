@@ -2,7 +2,7 @@
   "name": "weather",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://korpan-artem.github.io/weather/",
+  "homepage": "",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -16,6 +16,7 @@
     "jest": "^27.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-redux": "^8.0.5",
     "react-router": "^6.4.3",
     "react-router-dom": "^6.4.3",
@@ -24,6 +25,7 @@
     "redux-mock-store": "^1.5.4",
     "redux-persist": "^6.0.0",
     "sass": "^1.56.1",
+    "typescript": "^5.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
