@@ -93,6 +93,7 @@ h1 {
     flex-wrap: wrap;
     .card-item {
         display: flex;
+        position: relative;
         justify-content: space-between;
         flex-direction: column;
         width: 300px;
@@ -142,5 +143,105 @@ h1 {
     }
 }
 
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.5s;
+}
 
+.modal.active {
+    opacity: 1;
+}
 
+.modal-content {
+    padding: 20px;
+    background: #000;
+    width: 400px;
+    height: 300px;
+}
+
+.add-movie-box {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 300px;
+    padding: 20px;
+    color: #000;
+}
+
+.input-name-movie {
+    width: 90%;
+    height: 40px;
+    margin: 0 0 10px 0;
+    color: #000;
+}
+
+.add-file-movie {
+    display: flex;
+    align-items: center;
+    p {
+        flex: 0 0 45%;
+        font-size: 25px;
+        font-weight: 400;
+    }
+    input {
+        flex: 0 0 45%;
+    }
+}
+
+.small-input-movie {
+    display: flex;
+    .input-year,.input-format {
+        width: 44%;
+        height: 40px;
+        margin: 0 0 10px 0;
+        color: #000;
+    }
+}
+
+.textarea-actors {
+    width: 90%;
+    height: 80px;
+    margin: 0 0 10px 0;
+    color: #000;
+}
+
+.btn-submit {
+    width: 91%;
+    height: 40px;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px;
+}
+
+.btn-delete {
+    position: absolute;
+    top:5%;
+    right:5%;
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    color:#fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    &:before {
+        content: '+';
+        font-size: 40px;
+        position: absolute;
+        top:-12%;
+        left:18%;
+        transform: rotate(45deg);
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
