@@ -1,16 +1,44 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { addMovie } from "../../store/movieActions";
 import { useDispatch } from "react-redux";
-import { readFile } from "../../hooks"
+import { readFileAsString, readFile } from "../../hooks"
 
 function FormAddMovie() {
-
+    const [moviesList, setMoviesList] = useState('');
     const dispatch = useDispatch();
+
     const add = (values) => {
         console.log('add', values);
+        values.id = Math.trunc(Math.random() * (100000 - 10000) + 10000);
         dispatch(addMovie(values));
+        values = {}
     }
+
+    let objWithMovies = [];
+
+    async function handleFileInput(event) {
+        const file = event.target.files[0];
+        readFileAsString(file, (fileString, error) => {
+            if (error) {
+                console.error(error);
+            } else {
+                setMoviesList(fileString);
+            }
+        });
+    }
+
+    const addFileMovies = () => {
+        for(let i = 0;i < objWithMovies.length;i++) {
+            add(objWithMovies[i])
+        }
+    }
+
+    useEffect(() => {
+        objWithMovies = readFile(moviesList)
+        addFileMovies();
+    }, [moviesList])
+
 
     return (
         <div className='add-movie-box'>
@@ -21,8 +49,9 @@ function FormAddMovie() {
                     format: '',
                     stars: ''
                 }}
-                onSubmit={async (values) => {
+                onSubmit={(values) => {
                     console.log("onsubmit", values);
+                    // values.id = Math.random() * 10000
                     add(values)
                 }}
             >
@@ -30,43 +59,31 @@ function FormAddMovie() {
                     <div className='add-file-movie'>
                         <p>Add Movie</p>
                         <div>
-                            <input type="file"  id="file" placeholder="Add file with movie" />
-                            <a href="#" className="btn-add-file" onClick={() => readFile()}>Add file</a>
+                            <input type="file" id="file" placeholder="Add file with movie" onChange={(event) => handleFileInput(event)} />
+                            <a href="#" className="btn-add-file">Add file</a>
                         </div>
                     </div>
                     <Field
                         placeholder='Name movie..'
                         className='input-name-movie'
                         name="title"
-                    //   value={city}
-                    // onKeyPress={(event) => add(event,city)}
-                    // onChange={(event) => setCity(event.target.value)}
                     />
                     <div className="small-input-movie">
                         <Field
                             placeholder='Year'
                             className='input-year'
                             name="releaseYear"
-                        // value={city}
-                        // onKeyPress={(event) => add(event,city)}
-                        // onChange={(event) => setCity(event.target.value)}
                         />
                         <Field
                             placeholder='Format'
                             className='input-format'
                             name="format"
-                        // value={city}
-                        // onKeyPress={(event) => add(event,city)}
-                        // onChange={(event) => setCity(event.target.value)}
                         />
                     </div>
                     <Field
                         placeholder='Actors..'
                         className='textarea-actors'
                         name="stars"
-                    //   value={city}
-                    // onKeyPress={(event) => add(event,city)}
-                    // onChange={(event) => setCity(event.target.value)}
                     />
                     <button className='btn-submit' type="submit">Submit</button>
                 </Form>

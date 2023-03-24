@@ -2,12 +2,20 @@ import React, { useState } from "react";
 import CardMovie from "../../components/CardMovie";
 import FormAddMovie from "../../components/FormAddMovie";
 // import Modal from "../../components/ Modal";
+import { useSelector } from "react-redux";
 
 
 function HomePage() {
 
   const [movie, setMovie] = useState('');
-
+  const listMovies = useSelector(state => state.movies.movies)
+  const filteredMovies = listMovies.filter(item => {
+    return (
+      item.movie.title.toLowerCase().includes(movie.toLowerCase()) ||
+      item.movie.stars.toLowerCase().includes(movie.toLowerCase())
+    )
+  })
+  console.log(filteredMovies);
   return (
     <>
       <header className='header'>
@@ -30,13 +38,11 @@ function HomePage() {
         <a href='' className='btn-add'></a>
       </div>
       <div >
-        <CardMovie />
+        <CardMovie movies={filteredMovies} />
         {/* <Modal active={modalLoginActive}/> */}
       </div>
-      {/* <input type='file' name='movie-file' id="file" />
-      <button className="btn-add-file" onClick={() => addMovies()}>Add file</button> */}
 
-      <FormAddMovie/>
+      <FormAddMovie />
     </>
   );
 }

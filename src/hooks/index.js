@@ -12,15 +12,9 @@ const fetchCity = async (city) => {
   return data;
 }
 
-export const readFile = () => {
-  let obj = [];
-  let reader = new FileReader();
-
-  document.querySelector('.btn-add-file').addEventListener('click', () => {
-    let file = document.getElementById('file').files[0];
-    reader.onload = () => {
-      return () => {
-        let result = reader.result;
+export const readFile = (file) => {
+        let result = file;
+        let obj = [];
         let textToArray = result.split('\n').map(function (x) { return x.split(':') });
         for (let i = 0; i < textToArray.length; i++) {
           if (textToArray[i][0] === '') textToArray.splice(i, 1);
@@ -31,22 +25,23 @@ export const readFile = () => {
         for (let i = 0; i < textToArray.length; i += array_size) {
           sliced_array.push(textToArray.slice(i, i + array_size));
         }
-
-
+        
         for (let i = 0; i < sliced_array.length - 1; i++) {
-          obj.push(Object.fromEntries(sliced_array[i]));
+            obj.push({
+              title: sliced_array[i][0][1],
+              releaseYear: sliced_array[i][1][1],
+              format: sliced_array[i][2][1],
+              stars: sliced_array[i][3][1]
+            }) 
         }
-        console.log("functiopn", obj);
         return obj;
-      }
-    }
-    reader.readAsText(file);
-    reader.onerror = () => {
-      console.log(reader.error);
-    }
-  })
+}
 
-  return reader;
+export function readFileAsString(file, callback) {
+  const reader = new FileReader();
+  reader.readAsText(file, 'utf-8');
+  reader.onload = () => callback(reader.result);
+  reader.onerror = () => callback(null, reader.error);
 }
 
 
