@@ -147,3 +147,26 @@ export const queryUpdateMovie = async (movie,id,token) => {
 
     return data;
 }
+
+export const querySearchMovie = async (movie,params,token) => {
+    if (!token) return;
+
+
+    let requestOptions = {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+            'content-type': "application/json",
+        },
+        redirect: 'follow'
+    };
+
+    let data = await fetch(`http://localhost:8001/api/v1/movies?${params}=${movie}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            return result;
+        } )
+        .catch(error => console.log('error', error));
+
+    return data;
+}

@@ -17,3 +17,15 @@ export const validationSchema = Yup.object().shape({
         .max(50, 'Too Long!')
         .required('Required'),
 })
+
+
+export const validationSchemaLogIn = Yup.object().shape({
+    email: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+    password: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required('Required'),
+})

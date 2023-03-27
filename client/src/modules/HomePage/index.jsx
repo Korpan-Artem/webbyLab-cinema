@@ -1,48 +1,64 @@
-import React, { useState } from "react";
-import CardMovie from "../../components/CardMovie";
+import React, { useEffect, useState } from "react";
+import { queryAllMovies, querySearchMovie } from "../../components/FormAddMovie/query";
 import { useSelector, useDispatch } from "react-redux";
-import Header from "../../components/Header";
-import FormSignUp from "../../components/FormSignUp";
-import { queryAllMovies } from "../../components/FormAddMovie/query";
 import { updateMovies } from "../../store/movieActions";
 import FormAddMovie from "../../components/FormAddMovie";
 import ModalMovie from "../../components/ModalMovie";
-import { useEffect } from "react";
+import FormSignUp from "../../components/FormSignUp";
+import CardMovie from "../../components/CardMovie";
+import Header from "../../components/Header";
+
 
 function HomePage() {
 
   const [movie, setMovie] = useState('');
+
   const [showModal, setShowModal] = useState(false);
+  const [listMovies, setListMovies] = useState([]);
   const [sort, setSort] = useState('');
   const dispatch = useDispatch()
 
-  const listMovies = useSelector(state => state.movies.movies)
+  const list = useSelector(state => state.movies.movies)
   const token = useSelector(state => state.users.user.token)
 
-  const filteredMovies = !!listMovies && listMovies.filter(item => {
-    return (
-      !!item.title && item.title.toLowerCase().includes(movie.toLowerCase())
-      // !!item.movie.actor && item.movie.actors.join(', ').toLowerCase().includes(movie.toLowerCase())
-    )
-  })
-  
+  const searchMovies = async () => {
+    let moviesToTitle = await querySearchMovie(movie, 'title', token);
+    let moviesToActors = await querySearchMovie(movie, 'actor', token);
+
+    moviesToTitle = JSON.parse(moviesToTitle).data
+    moviesToActors = JSON.parse(moviesToActors).data
+
+    const movies = moviesToTitle.concat(moviesToActors);
+    setListMovies(movies);
+  }
+
   const toggleModal = () => {
     setShowModal(!showModal)
   }
 
   const sortByTitle = async (order) => {
-      let movies;
-      setSort(order);
-      movies = await queryAllMovies(order, token);
-      movies = JSON.parse(movies);
-      dispatch(updateMovies(movies));
+    if (movie.length > 3) return;
+
+    let movies;
+    setSort(order);
+    movies = await queryAllMovies(order, token);
+    movies = JSON.parse(movies);
+    dispatch(updateMovies(movies));
   }
 
   useEffect(() => {
-    if(token){
+    if (token) {
       sortByTitle('ASC')
     }
-  },[])
+    setListMovies(list);
+  }, [])
+
+  useEffect(() => {
+    if (movie.length > 3) {
+      searchMovies();
+    }
+
+  }, [movie])
 
   return (
     <>
@@ -67,8 +83,8 @@ function HomePage() {
               </div>
             </div>
             <div >
-              <CardMovie movies={filteredMovies} />
-              <ModalMovie active={showModal} setActive={setShowModal}><FormAddMovie id={123} setActive={setShowModal}/></ModalMovie>
+              <CardMovie movies={movie.length > 3 ? listMovies : list} />
+              <ModalMovie active={showModal} setActive={setShowModal}><FormAddMovie id={123} setActive={setShowModal} /></ModalMovie>
             </div>
           </div>
         ) : (
