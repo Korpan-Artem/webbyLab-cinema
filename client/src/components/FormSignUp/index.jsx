@@ -6,10 +6,6 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 
-
-
-
-
 function FormSignUp() {
     const [login, setLogin] = useState();
     const dispatch = useDispatch();
@@ -18,7 +14,6 @@ function FormSignUp() {
         let token = await signUp(values, status)
         dispatch(signUpAction(token))
     }
-
 
     return (
         <div className='add-movie-box'>

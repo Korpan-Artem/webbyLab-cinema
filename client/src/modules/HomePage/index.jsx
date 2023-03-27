@@ -57,7 +57,6 @@ function HomePage() {
     if (movie.length > 3) {
       searchMovies();
     }
-
   }, [movie])
 
   return (

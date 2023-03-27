@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React from 'react';
 
 import CardItem from '../CardItem';
 
@@ -14,9 +14,7 @@ const CardMovie = ({ movies }) => {
             className='card-item'
           />
 
-        )
-        )
-      }
+        ))}
     </div>
   )
 

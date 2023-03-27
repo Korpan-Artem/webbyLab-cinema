@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 
-
-
 function ModalMovie({active, setActive,children}) {
     return (
         <>

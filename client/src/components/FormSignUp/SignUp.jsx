@@ -44,9 +44,7 @@ function SignUp({ loginUser }) {
                         name="confirmPassword"
                     />
                     <button className='btn-submit' type="submit">Sing Up</button>
-
                 </div>
-
             </Form>
         </Formik>
     )

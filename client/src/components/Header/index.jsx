@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 import { signOutAction } from '../../store/userActions';
 
 
-
-
 function Header() {
     const token = useSelector(state => state.users.user.token)
     const dispatch = useDispatch();

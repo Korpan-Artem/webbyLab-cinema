@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-
-import { removeMovie } from "../../store/movieActions";
+import React, { useEffect, useState } from 'react';
 import { queryOneMovie, queryRemoveMovie } from '../FormAddMovie/query';
-import edit from '../../images/edit.svg'
-import ModalMovie from '../ModalMovie';
+import { useDispatch, useSelector } from "react-redux";
+import { removeMovie } from "../../store/movieActions";
 import FormEditMovie from "../FormEditMovie";
-import { useEffect } from 'react';
+import ModalMovie from '../ModalMovie';
+import edit from '../../images/edit.svg'
+
 
 
 const CardItem = ({ movie }) => {
@@ -32,7 +31,7 @@ const CardItem = ({ movie }) => {
 
     useEffect(() => {
         setActors(false)
-    },[movies]);
+    }, [movies]);
 
     return (
         <>
@@ -68,7 +67,7 @@ const CardItem = ({ movie }) => {
                 </div>
 
             </div>
-            <ModalMovie active={modal} setActive={setModal}><FormEditMovie id={movie.id} setActive={setModal}/></ModalMovie>
+            <ModalMovie active={modal} setActive={setModal}><FormEditMovie id={movie.id} setActive={setModal} /></ModalMovie>
         </>
     )
 

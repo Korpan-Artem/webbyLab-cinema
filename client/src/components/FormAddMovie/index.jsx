@@ -1,23 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { addMovie } from "../../store/movieActions";
 import { useDispatch, useSelector } from "react-redux";
-import { validationSchema } from './schema';
 import { queryAddMovie, queryImportMovies } from './query';
+import { validationSchema } from './schema';
 
 
-
-
-
-
-function FormAddMovie({setActive}) {
+function FormAddMovie({ setActive }) {
     const token = useSelector(state => state.users.user.token)
     const dispatch = useDispatch();
 
-    const add = async(values) => {
+    const add = async (values) => {
         values.actors = values.actors.split(",");
         values.year = Number(values.year);
-        let movie = await queryAddMovie(values,token);
+        let movie = await queryAddMovie(values, token);
         movie = JSON.parse(movie)
         dispatch(addMovie(movie.data));
     }

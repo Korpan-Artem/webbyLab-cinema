@@ -11,7 +11,6 @@ function SignIn({loginUser}) {
             password: '',
         }}
         onSubmit={async (values, { resetForm }) => {
-            console.log(values);
             loginUser(values,"sessions");
             resetForm();
         }}
