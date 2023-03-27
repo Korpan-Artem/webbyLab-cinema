@@ -5,10 +5,9 @@ import FormAddMovie from '../FormAddMovie';
 
 
 
-const Modal = (active=false, {children}) =>  {
+const Modal = (active=false, token) =>  {
 
     const [show, setShow] = useState(active);
-
     return (
         <>
             <div className={show ? "modal active" : "modal"} onClick={() => setShow(false)}>

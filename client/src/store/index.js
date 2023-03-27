@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import moviesList from "./movieActions";
+import usersList from "./userActions";
 import {
     persistStore,
     persistReducer,
@@ -15,6 +16,7 @@ import storage from 'redux-persist/lib/storage';
 
 const rootReducers = combineReducers({
     movies: moviesList,
+    users: usersList
 })
 
 const persistConfig = {
