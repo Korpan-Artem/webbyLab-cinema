@@ -1,35 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
-import { addMovie } from "../../store/movieActions";
+import { updateOneMovie } from "../../store/movieActions";
 import { useDispatch, useSelector } from "react-redux";
 import { validationSchema } from './schema';
-import { queryAddMovie, queryImportMovies } from './query';
+import { queryUpdateMovie } from '../FormAddMovie/query';
 
 
 
 
 
 
-function FormAddMovie({setActive}) {
+function FormEditMovie({id, setActive}) {
     const token = useSelector(state => state.users.user.token)
     const dispatch = useDispatch();
+
 
     const add = async(values) => {
         values.actors = values.actors.split(",");
         values.year = Number(values.year);
-        let movie = await queryAddMovie(values,token);
+        let movie = await queryUpdateMovie(values,id,token);
         movie = JSON.parse(movie)
-        dispatch(addMovie(movie.data));
-    }
-
-    async function handleFileInput(event) {
-        const file = event.target;
-        let movies = await queryImportMovies(file, token);
-        movies = JSON.parse(movies);
-        setActive(false)
-        movies.data.map((item) => {
-            dispatch(addMovie(item));
-        })
+        
+        dispatch(updateOneMovie(movie.data));
     }
 
     return (
@@ -43,7 +35,7 @@ function FormAddMovie({setActive}) {
                 }}
                 onSubmit={(values, { resetForm }) => {
                     add(values)
-                    setActive(false)
+                    setActive(false);
                     resetForm();
                 }}
                 validationSchema={validationSchema}
@@ -51,17 +43,7 @@ function FormAddMovie({setActive}) {
                 <Form>
                     <div className='add-box'>
                         <div className='add-file-movie'>
-                            <p>Add Movie</p>
-                            <div>
-                                <input
-                                    type="file"
-                                    id="file"
-                                    title=""
-                                    className="custom-file-input"
-                                    placeholder="Add file with movie"
-                                    onChange={(event) => handleFileInput(event)}
-                                />
-                            </div>
+                            <p>Edit Movie (ID:{id})</p>
                         </div>
                         <Field
                             placeholder='Name movie..'
@@ -93,4 +75,4 @@ function FormAddMovie({setActive}) {
     )
 
 }
-export default FormAddMovie;
+export default FormEditMovie;

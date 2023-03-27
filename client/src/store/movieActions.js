@@ -8,26 +8,33 @@ const moviesList = createSlice({
     },
     reducers: {
         addMovie(state, action) {
-            console.log(action);
-            const currentCity = !!state.movies && state.movies.find(
-                item => item.movie.id == action.payload.id
+            const currentMovie = !!state.movies && state.movies.find(
+                item => item.id == action.payload.id
             )
-            console.log('current',currentCity)
-            if(currentCity) {
-                console.log(currentCity.movie.title + " is already");
+            if(currentMovie) {
+                console.log(currentMovie.title + " is already");
             } else {
-                state.movies.push({
-                    movie:  action.payload,
-                })
+                state.movies.push(
+                    action.payload,
+                )
             }
         },
         removeMovie(state, action) {
-            state.movies = state.movies.filter(item => item.movie.id !== action.payload)
+            state.movies = state.movies.filter(item => item.id !== action.payload)
         },
-        
+        updateMovies(state, action) {
+            state.movies = []
+            action.payload.data.map(item => {
+                state.movies.push(item)
+            })
+        },
+        updateOneMovie(state, action) {
+            const currentMovie = state.movies.findIndex(item => item.id === action.payload.id)
+            state.movies[currentMovie] = action.payload;
+        }
     }
 })
 
-export const { addMovie, removeMovie } = moviesList.actions;
+export const { addMovie, removeMovie, updateMovies, updateOneMovie } = moviesList.actions;
 
 export default moviesList.reducer;

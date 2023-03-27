@@ -94,3 +94,56 @@ export const queryImportMovies = async (fileInput,token) => {
 
     return data;
 }
+
+
+export const queryOneMovie = async (id,token) => {
+    if (!token) return;
+
+
+
+    let requestOptions = {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        },
+        redirect: 'follow'
+    };
+
+
+
+    let data = await fetch(`http://localhost:8001/api/v1/movies/${id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            return result;
+        } )
+        .catch(error => console.log('error', error));
+
+    return data;
+}
+
+
+export const queryUpdateMovie = async (movie,id,token) => {
+    if (!token) return;
+
+
+    let requestOptions = {
+        method: 'PATCH',
+        headers: {
+            'Authorization': token,
+            'content-type': "application/json",
+        },
+        body: JSON.stringify(movie),
+        redirect: 'follow'
+    };
+
+
+
+    let data = await fetch(`http://localhost:8001/api/v1/movies/${id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            return result;
+        } )
+        .catch(error => console.log('error', error));
+
+    return data;
+}
