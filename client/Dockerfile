@@ -14,10 +14,11 @@ RUN npm install
 COPY . .
 
 # Set the API_URL environment variable
-ENV API_URL=http://localhost:8000/api/v1
+ENV REACT_APP_API_URL=http://localhost:8001/api/v1
 
 # Expose port 3000
 EXPOSE 3000
 
 # Start the application
 CMD ["npm", "start"]
+

@@ -1,4 +1,4 @@
-let apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1";
+let apiUrl = process.env.REACT_APP_API_URL;
 
 export const signUp = async (values, status) => {
     let requestOptions = {
@@ -9,6 +9,7 @@ export const signUp = async (values, status) => {
         body: JSON.stringify(values),
         redirect: 'follow'
     };
+    console.log(process.env)
 
     let data = await fetch(`${apiUrl}/${status}`, requestOptions)
         .then(response => response.text())
