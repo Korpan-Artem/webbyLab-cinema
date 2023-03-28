@@ -234,6 +234,7 @@ h1 {
     height: 40px;
     margin: 0 0 10px 0;
     color: #000;
+    font-size: 14px;
 }
 
 .add-box {
@@ -299,6 +300,7 @@ h1 {
         height: 40px;
         margin: 0 0 10px 0;
         color: #000;
+        font-size: 14px;
     }
 }
 
@@ -307,6 +309,7 @@ h1 {
     height: 80px;
     margin: 0 0 10px 0;
     color: #000;
+    font-size: 14px;
 }
 
 .btn-submit {
@@ -450,7 +453,11 @@ h1 {
         .card-item {
             height: 220px;
         }
-    }
+    } 
+}
 
-    
+
+.error-message {
+    padding: 0 0 10px 0;
+    color: rgb(255, 55, 55);
 }

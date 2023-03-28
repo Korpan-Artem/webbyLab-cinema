@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { addMovie } from "../../store/movieActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +10,15 @@ function FormAddMovie({ setActive }) {
     const token = useSelector(state => state.users.user.token)
     const dispatch = useDispatch();
 
-    const add = async (values) => {
+
+    const add = async (values, resetForm) => {
         values.actors = values.actors.split(",");
         values.year = Number(values.year);
         let movie = await queryAddMovie(values, token);
         movie = JSON.parse(movie)
         dispatch(addMovie(movie.data));
+        setActive(false)
+        resetForm();
     }
 
     async function handleFileInput(event) {
@@ -38,52 +41,55 @@ function FormAddMovie({ setActive }) {
                     actors: [],
                 }}
                 onSubmit={(values, { resetForm }) => {
-                    add(values)
-                    setActive(false)
-                    resetForm();
+                    add(values, resetForm)
                 }}
                 validationSchema={validationSchema}
             >
-                <Form>
-                    <div className='add-box'>
-                        <div className='add-file-movie'>
-                            <p>Add Movie</p>
-                            <div>
-                                <input
-                                    type="file"
-                                    id="file"
-                                    title=""
-                                    className="custom-file-input"
-                                    placeholder="Add file with movie"
-                                    onChange={(event) => handleFileInput(event)}
+                {({ errors }) => (
+                    <Form>
+                        <div className='add-box'>
+                            <div className='add-file-movie'>
+                                <p>Add Movie</p>
+                                <div>
+                                    <input
+                                        type="file"
+                                        id="file"
+                                        title=""
+                                        className="custom-file-input"
+                                        placeholder="Add file with movie"
+                                        onChange={(event) => handleFileInput(event)}
+                                    />
+                                </div>
+                            </div>
+                            {errors.title || errors.year || errors.format || errors.actors ? (
+                                <div className='error-message'>Wrong data</div>
+                            ) : null}
+                            <Field
+                                placeholder='Name movie..'
+                                className='input-name-movie'
+                                name="title"
+                            />
+                            <div className="small-input-movie">
+                                <Field
+                                    placeholder='Year'
+                                    className='input-year'
+                                    name="year"
+                                />
+                                <Field
+                                    placeholder='Format'
+                                    className='input-format'
+                                    name="format"
                                 />
                             </div>
-                        </div>
-                        <Field
-                            placeholder='Name movie..'
-                            className='input-name-movie'
-                            name="title"
-                        />
-                        <div className="small-input-movie">
                             <Field
-                                placeholder='Year'
-                                className='input-year'
-                                name="year"
+                                placeholder='Actors..'
+                                className='textarea-actors'
+                                name="actors"
                             />
-                            <Field
-                                placeholder='Format'
-                                className='input-format'
-                                name="format"
-                            />
+                            <button className='btn-submit' type="submit">Add</button>
                         </div>
-                        <Field
-                            placeholder='Actors..'
-                            className='textarea-actors'
-                            name="actors"
-                        />
-                        <button className='btn-submit' type="submit">Submit</button>
-                    </div>
-                </Form>
+                    </Form>
+                )}
             </Formik>
         </div>
     )

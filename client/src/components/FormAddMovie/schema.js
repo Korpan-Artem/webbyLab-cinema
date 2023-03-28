@@ -4,13 +4,12 @@ export const validationSchema = Yup.object().shape({
         .min(2, 'Too Short!')
         .max(50, 'Too Long!')
         .required('Required'),
-    year: Yup.string()
-        .min(4, 'Too Short!')
-        .max(4, 'Too Long!')
+    year: Yup.number()
+        .min(1900)
+        .max(2021)
         .required('Required'),
     format: Yup.string()
-        .min(2, 'Too Short!')
-        .max(10, 'Too Long!')
+        .oneOf(['DVD', 'VHS', 'Blu-ray'])
         .required('Required'),
     actors: Yup.string()
         .min(2, 'Too Short!')

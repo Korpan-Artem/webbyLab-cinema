@@ -8,20 +8,26 @@ import SignUp from './SignUp';
 
 function FormSignUp() {
     const [login, setLogin] = useState();
+    const [correctData, setCorrectData] = useState(true);
+
     const dispatch = useDispatch();
 
     const loginUser = async (values, status) => {
         let token = await signUp(values, status)
-        dispatch(signUpAction(token))
+        if(!token.error) {
+            dispatch(signUpAction(token))
+        } else {
+            setCorrectData(false);
+        }
     }
 
     return (
         <div className='add-movie-box'>
             {
                 !!login ? (
-                    <SignIn loginUser={loginUser} />
+                    <SignIn loginUser={loginUser} correctData={correctData}/>
                 ) : (
-                    <SignUp loginUser={loginUser} />
+                    <SignUp loginUser={loginUser} correctData={correctData}/>
                 )
             }
             {

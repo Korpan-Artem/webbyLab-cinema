@@ -1,3 +1,5 @@
+let apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000/api/v1";
+
 export const queryAddMovie = async (values, token) => {
     if (!token) return;
 
@@ -11,7 +13,7 @@ export const queryAddMovie = async (values, token) => {
         redirect: 'follow'
     };
 
-    let data = await fetch("http://localhost:8001/api/v1/movies", requestOptions)
+    let data = await fetch(`${apiUrl}/movies`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result
@@ -33,7 +35,7 @@ export const queryRemoveMovie = async (id, token) => {
         redirect: 'follow'
     };
 
-    let data = await fetch(`http://localhost:8001/api/v1/movies/${id}`, requestOptions)
+    let data = await fetch(`${apiUrl}/movies/${id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result
@@ -55,7 +57,7 @@ export const queryAllMovies = async (order, token) => {
         redirect: 'follow'
     };
 
-    let data = await fetch(`http://localhost:8001/api/v1/movies?sort=title&order=${order}&limit=10&offset=0`, requestOptions)
+    let data = await fetch(`${apiUrl}/movies?sort=title&order=${order}&limit=10&offset=0`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result
@@ -67,8 +69,6 @@ export const queryAllMovies = async (order, token) => {
 
 export const queryImportMovies = async (fileInput,token) => {
     if (!token) return;
-
-
 
     let formdata = new FormData();
     formdata.append("movies", fileInput.files[0], "movies.txt");
@@ -83,9 +83,7 @@ export const queryImportMovies = async (fileInput,token) => {
         redirect: 'follow'
     };
 
-
-
-    let data = await fetch("http://localhost:8001/api/v1/movies/import", requestOptions)
+    let data = await fetch(`${apiUrl}/movies/import`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result;
@@ -99,8 +97,6 @@ export const queryImportMovies = async (fileInput,token) => {
 export const queryOneMovie = async (id,token) => {
     if (!token) return;
 
-
-
     let requestOptions = {
         method: 'GET',
         headers: {
@@ -109,9 +105,7 @@ export const queryOneMovie = async (id,token) => {
         redirect: 'follow'
     };
 
-
-
-    let data = await fetch(`http://localhost:8001/api/v1/movies/${id}`, requestOptions)
+    let data = await fetch(`${apiUrl}/movies/${id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result;
@@ -138,7 +132,7 @@ export const queryUpdateMovie = async (movie,id,token) => {
 
 
 
-    let data = await fetch(`http://localhost:8001/api/v1/movies/${id}`, requestOptions)
+    let data = await fetch(`${apiUrl}/movies/${id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result;
@@ -161,7 +155,7 @@ export const querySearchMovie = async (movie,params,token) => {
         redirect: 'follow'
     };
 
-    let data = await fetch(`http://localhost:8001/api/v1/movies?${params}=${movie}`, requestOptions)
+    let data = await fetch(`${apiUrl}/movies?${params}=${movie}`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result;
