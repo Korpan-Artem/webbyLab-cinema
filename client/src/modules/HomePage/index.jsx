@@ -36,15 +36,15 @@ function HomePage() {
     setShowModal(!showModal)
   }
 
-  const sortByTitle = async (order) => {
-    if (movie.length > 3) return;
-
+  const sortByTitle = async (order="ASC") => {
+    if (movie.length > 2) return;
     let movies;
     setSort(order);
     movies = await queryAllMovies(order, token);
     movies = JSON.parse(movies);
     dispatch(updateMovies(movies));
   }
+
 
   useEffect(() => {
     if (token) {
@@ -54,10 +54,14 @@ function HomePage() {
   }, [])
 
   useEffect(() => {
-    if (movie.length > 3) {
+    if (movie.length > 2 && list.length >= 1) {
       searchMovies();
     }
-  }, [movie])
+  }, [movie,list])
+
+  useEffect(() => {
+    if(list.length >= 1 && movie.length > 2 ) searchMovies();
+  }, [list])
 
   return (
     <>
@@ -82,7 +86,7 @@ function HomePage() {
               </div>
             </div>
             <div >
-              <CardMovie movies={movie.length > 3 ? listMovies : list} />
+              <CardMovie movies={movie.length > 2 ? listMovies : list} />
               <ModalMovie active={showModal} setActive={setShowModal}><FormAddMovie id={123} setActive={setShowModal} /></ModalMovie>
             </div>
           </div>

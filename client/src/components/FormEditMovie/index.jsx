@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
-import { updateOneMovie } from "../../store/movieActions";
-import { useDispatch, useSelector } from "react-redux";
+import { updateOneMovie } from '../../store/movieActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { queryUpdateMovie } from '../FormAddMovie/query';
 import { validationSchema } from '../FormAddMovie/schema';
 
@@ -10,17 +10,16 @@ function FormEditMovie({ id, setActive }) {
     const token = useSelector(state => state.users.user.token)
     const dispatch = useDispatch();
 
-    const add = async (values,resetForm) => {
-        console.log("on fn",values);
+    const add = async (values, resetForm) => {
         values.actors = values.actors.split(",");
         values.year = Number(values.year);
+
         let movie = await queryUpdateMovie(values, id, token);
         movie = JSON.parse(movie)
-        console.log(movie);
+
         dispatch(updateOneMovie(movie.data));
         setActive(false)
         resetForm();
-      
     }
 
     return (
@@ -33,8 +32,7 @@ function FormEditMovie({ id, setActive }) {
                     actors: [],
                 }}
                 onSubmit={(values, { resetForm }) => {
-                    console.log("on sub",values);
-                    add(values,resetForm)
+                    add(values, resetForm)
                 }}
                 validationSchema={validationSchema}
             >
@@ -46,30 +44,30 @@ function FormEditMovie({ id, setActive }) {
                             </div>
                             {errors.title || errors.year || errors.format || errors.actors ? (
                                 <div className='error-message'>Wrong data</div>
-                            ) : null}   
+                            ) : null}
                             <Field
                                 placeholder='Name movie..'
                                 className='input-name-movie'
-                                name="title"
+                                name='title'
                             />
-                            <div className="small-input-movie">
+                            <div className='small-input-movie'>
                                 <Field
                                     placeholder='Year'
                                     className='input-year'
-                                    name="year"
+                                    name='year'
                                 />
                                 <Field
                                     placeholder='Format'
                                     className='input-format'
-                                    name="format"
+                                    name='format'
                                 />
                             </div>
                             <Field
                                 placeholder='Actors..'
                                 className='textarea-actors'
-                                name="actors"
+                                name='actors'
                             />
-                            <button className='btn-submit' type="submit">Edit</button>
+                            <button className='btn-submit' type='submit'>Edit</button>
                         </div>
                     </Form>
                 )}

@@ -57,7 +57,7 @@ export const queryAllMovies = async (order, token) => {
         redirect: 'follow'
     };
 
-    let data = await fetch(`${apiUrl}/movies?sort=title&order=${order}&limit=10&offset=0`, requestOptions)
+    let data = await fetch(`${apiUrl}/movies?sort=title&order=${order}&limit=100&offset=0`, requestOptions)
         .then(response => response.text())
         .then(result => {
             return result

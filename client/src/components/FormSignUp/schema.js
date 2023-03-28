@@ -13,9 +13,7 @@ export const validationSchema = Yup.object().shape({
         .max(50, 'Too Long!')
         .required('Required'),
     confirmPassword: Yup.string()
-        .min(4, 'Too Short!')
-        .max(50, 'Too Long!')
-        .required('Required'),
+        .oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
 
 

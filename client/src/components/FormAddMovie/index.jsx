@@ -10,6 +10,7 @@ function FormAddMovie({ setActive }) {
     const token = useSelector(state => state.users.user.token)
     const dispatch = useDispatch();
 
+    const [correctData, setCorrectData] = useState(true);
 
     const add = async (values, resetForm) => {
         values.actors = values.actors.split(",");
@@ -25,10 +26,14 @@ function FormAddMovie({ setActive }) {
         const file = event.target;
         let movies = await queryImportMovies(file, token);
         movies = JSON.parse(movies);
-        setActive(false)
-        movies.data.map((item) => {
-            dispatch(addMovie(item));
-        })
+        if(!movies.error) {
+            movies.data.map((item) => {
+                dispatch(addMovie(item));
+            })
+            setActive(false)
+        } else {
+            setCorrectData(false);
+        }
     }
 
     return (
@@ -39,6 +44,7 @@ function FormAddMovie({ setActive }) {
                     year: '',
                     format: '',
                     actors: [],
+                    file: ''
                 }}
                 onSubmit={(values, { resetForm }) => {
                     add(values, resetForm)
@@ -54,7 +60,7 @@ function FormAddMovie({ setActive }) {
                                     <input
                                         type="file"
                                         id="file"
-                                        title=""
+                                        name="file"
                                         className="custom-file-input"
                                         placeholder="Add file with movie"
                                         onChange={(event) => handleFileInput(event)}
@@ -63,6 +69,9 @@ function FormAddMovie({ setActive }) {
                             </div>
                             {errors.title || errors.year || errors.format || errors.actors ? (
                                 <div className='error-message'>Wrong data</div>
+                            ) : null}
+                            {!correctData? (
+                                <div className='error-message'>File is not correct</div>
                             ) : null}
                             <Field
                                 placeholder='Name movie..'
