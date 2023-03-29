@@ -14,6 +14,7 @@ function HomePage() {
   const [movie, setMovie] = useState('');
 
   const [showModal, setShowModal] = useState(false);
+  const [modalConfirmation, setModalConfirmation] = useState(false);
   const [listMovies, setListMovies] = useState([]);
   const [sort, setSort] = useState('');
   const dispatch = useDispatch()
@@ -36,7 +37,7 @@ function HomePage() {
     setShowModal(!showModal)
   }
 
-  const sortByTitle = async (order="ASC") => {
+  const sortByTitle = async (order = "ASC") => {
     if (movie.length > 2) return;
     let movies;
     setSort(order);
@@ -57,10 +58,10 @@ function HomePage() {
     if (movie.length > 2 && list.length >= 1) {
       searchMovies();
     }
-  }, [movie,list])
+  }, [movie, list])
 
   useEffect(() => {
-    if(list.length >= 1 && movie.length > 2 ) searchMovies();
+    if (list.length >= 1 && movie.length > 2) searchMovies();
   }, [list])
 
   return (
@@ -87,7 +88,10 @@ function HomePage() {
             </div>
             <div >
               <CardMovie movies={movie.length > 2 ? listMovies : list} />
-              <ModalMovie active={showModal} setActive={setShowModal}><FormAddMovie id={123} setActive={setShowModal} /></ModalMovie>
+
+              <ModalMovie active={showModal} setActive={setShowModal}>
+                <FormAddMovie setActive={setShowModal} setModalConfirmation={setModalConfirmation}/>
+              </ModalMovie>
             </div>
           </div>
         ) : (

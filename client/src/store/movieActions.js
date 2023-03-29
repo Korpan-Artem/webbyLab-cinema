@@ -9,7 +9,7 @@ const moviesList = createSlice({
     reducers: {
         addMovie(state, action) {
             const currentMovie = !!state.movies && state.movies.find(
-                item => item.id == action.payload.id
+                item => item.title == action.payload.title
             )
             if(currentMovie) {
                 console.log(currentMovie.title + " is already");
@@ -29,8 +29,13 @@ const moviesList = createSlice({
             })
         },
         updateOneMovie(state, action) {
-            const currentMovie = state.movies.findIndex(item => item.id === action.payload.id)
-            state.movies[currentMovie] = action.payload;
+            const existMovie = !!state.movies && state.movies.find(
+                item => item.title == action.payload.title
+            )
+            if(!existMovie) {
+                const currentMovie = state.movies.findIndex(item => item.id === action.payload.id)
+                state.movies[currentMovie] = action.payload;
+            }
         }
     }
 })

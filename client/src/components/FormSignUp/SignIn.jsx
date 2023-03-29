@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { validationSchemaLogIn } from './schema';
 
 
 function SignIn({ loginUser, correctData }) {
+
     return (
         <Formik
             initialValues={{
