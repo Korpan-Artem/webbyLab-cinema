@@ -77,4 +77,4 @@ docker run --name movies -p 3000:3000 -e REACT_API_API_URL=http://localhost:8001
 ```
 
 
-This will start the container with the name movies, bind port 3000 of the container to port 3000 of the host, set the REACT_APP_API_URL environment variable to http://localhost:8001/api/v1, and use the Docker image that you built.
+This will start the container with the name movies, bind port 3000 of the container to port 3000 of the host, set the REACT_APP_API_URL environment variable to http://localhost:8000/api/v1, and use the Docker image that you built.
