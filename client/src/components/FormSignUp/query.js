@@ -9,7 +9,6 @@ export const signUp = async (values, status) => {
         body: JSON.stringify(values),
         redirect: 'follow'
     };
-    console.log(process.env)
 
     let data = await fetch(`${apiUrl}/${status}`, requestOptions)
         .then(response => response.text())
