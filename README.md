@@ -49,16 +49,10 @@ cd client
 docker pull webbylabhub/movies
 ```
 
-4. Build the Docker with server
+4. Run the Docker with server
 
 ```
-docker build -t webbylabhub/movies
-```
-
-5. Run the Docker with server
-
-```
-docker run --name movies -p 8000:8000 webbylabhub/movies
+docker run --name movies -p 8001:8000 webbylabhub/movies
 ```
 
 ## Building and Running a Docker Image with application
@@ -76,16 +70,10 @@ cd client
 docker pull arttodoc/webbylab
 ```
 
-4. Build the Docker with application
+4. Run the Docker with application
 
 ```
-docker build -t arttodoc/webbylab
-```
-
-5. Run the Docker with application
-
-```
-docker run --name movies -p 3000:3000 -e REACT_API_API_URL=http://localhost:8000/api/v1 arttodoc/webbylab
+docker run --name movies -p 3000:3000 -e REACT_API_API_URL=http://localhost:8001/api/v1 arttodoc/webbylab
 ```
 
 
